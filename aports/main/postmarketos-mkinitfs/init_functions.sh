@@ -72,16 +72,25 @@ find_root_partition() {
 	# what we want.
 	#
 	# To deal with the side-effect, we use the partitions from
-	# /dev/mapper first, and then fall back to partitions with all paths
-	# (in case the user inserted an SD card after mount_subpartitions()
-	# ran!).
+	# /dev/dm-* and /dev/mapper first, and then fall back to partitions
+	# with all paths (in case the user inserted an SD card after
+	# mount_subpartitions() ran!).
 
-	# Try the partitions in /dev/mapper first.
+	# Try partitions in /dev/dm-* first
 	for id in pmOS_root crypto_LUKS; do
-		DEVICE="$(blkid | grep /dev/mapper | grep "$id" \
+		DEVICE="$(blkid | grep /dev/dm | grep "$id" \
 			| cut -d ":" -f 1)"
 		[ -z "$DEVICE" ] || break
 	done
+
+	# Try the partitions in /dev/mapper next.
+	if [ -z "$DEVICE" ]; then
+		for id in pmOS_root crypto_LUKS; do
+			DEVICE="$(blkid | grep /dev/mapper | grep "$id" \
+				| cut -d ":" -f 1)"
+			[ -z "$DEVICE" ] || break
+		done
+	fi
 
 	# Then try all devices
 	if [ -z "$DEVICE" ]; then
@@ -162,8 +171,7 @@ unlock_root_partition() {
 	partition="$(find_root_partition)"
 	if cryptsetup isLuks "$partition"; then
 		until cryptsetup status root | grep -qwi active; do
-			start_usb_unlock
-			cryptsetup luksOpen "$partition" root || continue
+			start_onscreen_keyboard
 		done
 		# Show again the loading splashscreen
 		show_splash /splash-loading.ppm.gz
@@ -288,6 +296,28 @@ start_usb_unlock() {
 	} >/telnet_connect.sh
 	chmod +x /telnet_connect.sh
 	telnetd -b "${IP}:${TELNET_PORT}" -l /telnet_connect.sh
+}
+
+start_onscreen_keyboard(){
+	# Set up directfb and tslib for osk-sdl
+	export DFBARGS="system=fbdev,no-cursor,linux-input-grab"
+	export SDL_VIDEO_GL_DRIVER="libGL.so.1"
+	# shellcheck disable=SC2154
+	if [ ! -z "$deviceinfo_dev_touchscreen" ]; then
+		export TSLIB_TSDEVICE="$deviceinfo_dev_touchscreen"
+	fi
+	# shellcheck disable=SC2154
+	if [ ! -z "$deviceinfo_dev_keyboard" ]; then
+		export DFBARGS="$DFBARGS,linux-input-devices=$deviceinfo_dev_keyboard"
+	else
+		# Use SDL for input management
+		export DFBARGS="$DFBARGS,disable-module=linux_input"
+	fi
+
+	osk-sdl -n root -d "$partition" -c /etc/osk.conf -v > /osk-sdl.log 2>&1
+	unset DFBARGS
+	unset SDL_VIDEO_GL_DRIVER
+	unset TSLIB_TSDEVICE
 }
 
 # $1: path to ppm.gz file
