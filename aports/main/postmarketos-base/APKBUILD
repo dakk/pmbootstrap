@@ -1,12 +1,13 @@
 pkgname=postmarketos-base
 pkgver=3
-pkgrel=6
+pkgrel=7
 pkgdesc="Meta package for minimal postmarketOS base"
 url="https://github.com/postmarketOS"
 arch="noarch"
 license="GPL3+"
 depends="
 	alpine-base
+	chrony
 	cryptsetup
 	eudev
 	haveged
@@ -55,4 +56,4 @@ sha512sums="c6de3b44bc45b9f9c641a7e34c69a481ee39b99ac0251cd28f2b3aae49c1a8d1ca44
 3ceeee37f558e7c95ad973692b6a437f997e6b46c3d1c2257ddfb1529a5633477373aa123c7f08164e818daae50acb203d151379f27ca11bd458809e6a0d4de7  swapfile
 f5cc0f1265955d2646e5f099dd4b5d4c287945bfc18c16044db57670d456f55c678fc11cc59e6dab3fa340832ce869d516302a3a35c13518539ed0cedca51819  swapfile.init
 e0d2d48b82a03239a4c0a00acaf83e00d397c23a8d7c71053d4e2a383357c22dcedef9e81b0e12a1d7514e1fdbe0bb3eb82613d18b29034a7ce5447f13c84a53  swapfile.conf
-90a4ced45eded690a5ee3ef65991827d2bbc0f8ba964fbafb1ff703a0deebf61d48b335d942ce9175d57e4ec18ff1f4820ce5c04255d5b97dad7d8fb72264d48  postmarketos-base.post-install"
+bdc106e403c5124038f53dbb82c37f34a0da7377436304555ba88236e1144f58175071b0b66aa2766ed7a556613a6d70129795cd35015044c892030042e9a6af  postmarketos-base.post-install"

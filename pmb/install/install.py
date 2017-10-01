@@ -295,6 +295,10 @@ def install(args):
     # Set the keymap if the device requires it
     setup_keymap(args)
 
+    # Offer to set timezone
+    if pmb.helpers.cli.confirm(args, "Would you like to configure the timezone?"):
+        pmb.chroot.root(args, ["setup-timezone"], suffix, log=False)
+
     if args.android_recovery_zip:
         install_recovery_zip(args)
     else:
