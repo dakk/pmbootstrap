@@ -3,19 +3,17 @@ set -e
 
 case $1 in
 	--help|-h|'')
-		echo "Usage: update-kernel [flavor]"
+		echo "Usage: pmos-update-kernel [flavor]"
 		exit 1
 		;;
 esac
 
 # shellcheck disable=SC1091
 . /etc/deviceinfo
+
 FLAVOR=$1
-mountpoint -q /boot/ || {
-	echo "Mounting boot partition..."
-	mount -o ro "$(findfs LABEL='pmOS_boot')" /boot/
-}
-case ${deviceinfo_flash_methods:?} in
+METHOD=${deviceinfo_flash_methods:?}
+case $METHOD in
 	fastboot|heimdall-bootimg)
 		echo "Flashing boot.img..."
 		BOOT_PARTITION=$(findfs PARTLABEL="boot")
@@ -28,6 +26,14 @@ case ${deviceinfo_flash_methods:?} in
 		dd if=/boot/vmlinuz-"$FLAVOR" of="$KERNEL_PARTITION"
 		gunzip -c /boot/initramfs-"$FLAVOR" | lzop > "$INITFS_PARTITION"
 		;;
+	0xFFFF)
+		echo "No need to use this utility, since uboot loads the kernel directly from \
+			the boot partition. Your kernel should be updated already."
+		exit 1
+		;;
+	*)
+		echo "Devices with flash method: $METHOD are not supported."
+		exit 1
+		;;
 esac
-echo "Unmounting boot partition..."
-umount /boot/
+echo "Done."

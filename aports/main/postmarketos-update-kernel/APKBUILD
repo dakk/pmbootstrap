@@ -12,4 +12,4 @@ package() {
 	install -Dm755 "$srcdir/update-kernel.sh" \
 		"$pkgdir/sbin/pmos-update-kernel"
 }
-sha512sums="59fe8b27e8d9d25c11bfa1d01d4d25d10a77f95dc837a76366eb3a2aef2beefd3b0beb7e6a889acd75d0285bc99e1c4b2f0e12cd66ad348293b913c9070e94b5  update-kernel.sh"
+sha512sums="0ff8de741054cdebb91297d97b9ea376f1654230d528bc6dd52cbd7898ae81d4cb3de7d82b3fd19e9ea26028ee650c5045d256ae7b91c9964d144856a88e739e  update-kernel.sh"
