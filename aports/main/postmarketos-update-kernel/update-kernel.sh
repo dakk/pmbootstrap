@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/bin/ash
+# shellcheck shell=dash
 set -e
 
 case $1 in
@@ -27,8 +28,8 @@ case $METHOD in
 		gunzip -c /boot/initramfs-"$FLAVOR" | lzop > "$INITFS_PARTITION"
 		;;
 	0xFFFF)
-		echo "No need to use this utility, since uboot loads the kernel directly from \
-			the boot partition. Your kernel should be updated already."
+		echo -n "No need to use this utility, since uboot loads the kernel directly from"
+		echo " the boot partition. Your kernel should be updated already."
 		exit 1
 		;;
 	*)
