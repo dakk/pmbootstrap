@@ -1,0 +1,28 @@
+pkgname=device-samsung-i9003
+pkgver=1
+pkgrel=13
+pkgdesc="Samsung Galaxy SI SLC"
+url="https://github.com/postmarketOS"
+arch="noarch"
+license="MIT"
+depends="linux-samsung-i9003 firmware-samsung-i9100 libsamsung-ipc"
+makedepends=""
+install="$pkgname.post-install"
+subpackages=""
+source="
+	deviceinfo
+	90-android-touch-dev.rules
+	$install
+"
+options="!check"
+
+package() {
+	install -D -m644 "$srcdir/deviceinfo" \
+		"$pkgdir/etc/deviceinfo"
+	install -D -m644 "$srcdir"/90-android-touch-dev.rules \
+		"$pkgdir"/etc/udev/rules.d/90-android-touch-dev.rules
+}
+
+sha512sums="97d5358aa0795fd0b182472d1c49460a042ff75b67d3e76a3c50ea6e631e53d3f1c852df5f1f942bf082acdb81658e68fa3a9ef575c8c271cd9e55f2fc51b5cc  deviceinfo
+8aead706ddb118a44de7d049f07d10a27e727d17724058d132e4ec4fa73fed29c9ccfe03f02aca459c922ec0fbba24e171fe3c76e33f7c5462631e3dd5506e36  90-android-touch-dev.rules
+03da52725e676bc7db371cbf4b60bff8689eca469dae96a02ca7d6c194ed9f8c4ec9d19d1ac9212eeba0b73384fd213e86f2b93da94f37e5abe4cc3339281205  device-samsung-i9003.post-install"
