@@ -15,7 +15,7 @@
 
 _vendor=samsung
 _flavor=samsung-i9003
-_hash="7b38d53b9e250e909e0b5ccc7c964b0b21f68014"
+_hash="289eea27980ccc582868cf2816879893946cb4cf"
 _config="config-${_flavor}.armhf"
 
 pkgname=linux-${_flavor}
@@ -27,14 +27,14 @@ esac
 pkgrel=9
 arch="armhf"
 pkgdesc="Samsung Galaxy SI SLC kernel"
-url="https://github.com/NamelessRom/android_kernel_samsung_latona/"
+url="https://github.com/dakk/android_kernel_samsung_latona/"
 depends="postmarketos-mkinitfs"
 makedepends="perl sed installkernel bash gmp-dev bc linux-headers elfutils-dev
 findutils busybox-static-armhf"
 options="!strip !check !tracedeps"
 install=
 source="
-	$pkgname-$_hash.tar.gz::https://github.com/NamelessRom/android_kernel_samsung_latona/archive/${_hash}.tar.gz
+	$pkgname-$_hash.tar.gz::https://github.com/dakk/android_kernel_samsung_latona/archive/${_hash}.tar.gz
 	$_config
 	compiler-gcc6.h
 	init
@@ -122,7 +122,7 @@ package() {
 		"$pkgdir/usr/share/kernel/$_flavor/kernel.release"
 }
 
-sha512sums="73c526bd737b94cfaeb40b1c9e0be824f5eb0052a81a3dd928cfd11e526c92973985f9d8935994cf9c81b43dd5ce8b3871e5ee2012b6a2b8f86438aabc9d5ea0  linux-samsung-i9003-7b38d53b9e250e909e0b5ccc7c964b0b21f68014.tar.gz
-7dec1c28a89f4f0a7e8d72c4bbad1fbdbd91c864d83bb983f51b6968cc68088d99ad451e715705b12ec022af0f69fc10cf4966109e0a2f46f67df6a51fca62cb  config-samsung-i9003.armhf
+sha512sums="5b453bd6cd27f3db55b7bf2187cc7704a6a7d2ab9fdc89f0145cb22bd7f044d2fd4814d6f6f2707ff3318584bc2b0ed44bb87c777ce715f883cd80ea37210cb1  linux-samsung-i9003-289eea27980ccc582868cf2816879893946cb4cf.tar.gz
+df67ba004a8680b39b39372305f616215cb1c16c9f782e5e995374c4d7cdb804b603c70658b0d64ac04ce7bce66808fd2aef15973e1878bb765166faeb571063  config-samsung-i9003.armhf
 d80980e9474c82ba0ef1a6903b434d8bd1b092c40367ba543e72d2c119301c8b2d05265740e4104ca1ac5d15f6c4aa49e8776cb44264a9a28dc551e0d1850dcc  compiler-gcc6.h
 dd4094d5f4ec281d32f12af88cb22a782e497c8e52f69cf60b73ac7d6171fc95f1f8040b3d0ad2ff3f016d22ac1d91c5b522e5d03203534a76742bc55a082af5  init"
