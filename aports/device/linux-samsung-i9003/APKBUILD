@@ -103,6 +103,7 @@ prepare() {
 menuconfig() {
 	cd "$srcdir"/build
 	make ARCH="$_carch" menuconfig
+	#ARCH="$_carch" "$ksrcdir"/scripts/kconfig/merge_config.sh "$ksrcdir"/arch/arm/config/latona_defconfig "$ksrcdir"/android/configs/android-base.cfg "$ksrcdir"/android/configs/android-recommended.cfg
 	cp .config "$startdir"/$_config
 }
 
@@ -123,6 +124,6 @@ package() {
 }
 
 sha512sums="5b453bd6cd27f3db55b7bf2187cc7704a6a7d2ab9fdc89f0145cb22bd7f044d2fd4814d6f6f2707ff3318584bc2b0ed44bb87c777ce715f883cd80ea37210cb1  linux-samsung-i9003-289eea27980ccc582868cf2816879893946cb4cf.tar.gz
-df67ba004a8680b39b39372305f616215cb1c16c9f782e5e995374c4d7cdb804b603c70658b0d64ac04ce7bce66808fd2aef15973e1878bb765166faeb571063  config-samsung-i9003.armhf
+750e98b73683c106d0620d7ea25b6a7a8e83e432126e41149bc6590e76d3e2520c7222c5eda97532866003d7935bb474be0e4b931e66bce4353da1ab3334b91f  config-samsung-i9003.armhf
 d80980e9474c82ba0ef1a6903b434d8bd1b092c40367ba543e72d2c119301c8b2d05265740e4104ca1ac5d15f6c4aa49e8776cb44264a9a28dc551e0d1850dcc  compiler-gcc6.h
 dd4094d5f4ec281d32f12af88cb22a782e497c8e52f69cf60b73ac7d6171fc95f1f8040b3d0ad2ff3f016d22ac1d91c5b522e5d03203534a76742bc55a082af5  init"
