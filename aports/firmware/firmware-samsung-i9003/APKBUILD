@@ -18,4 +18,3 @@ package() {
 	mkdir -p $pkgdir/lib/firmware/postmarketos
 	for _i in $_files; do install -D -m644 "$srcdir/$_i" "$pkgdir/lib/firmware/postmarketos/$_i"; done
 }
-sha512sums=""
