@@ -8,7 +8,7 @@
 # - use Alpine's busybox-static instead of the pre-compiled
 #	binary, that comes with the source
 #
-# Kernel config changes, based on: arch/arm/configs/i9100_defconfig
+# Kernel config changes, based on: arch/arm/configs/latona_defconfig
 # - enable devtmpfs (needed for udev -> touch support in weston)
 # - change compression from CONFIG_KERNEL_LZMA=y to
 #	CONFIG_KERNEL_GZIP=y (so it works with busybox)
